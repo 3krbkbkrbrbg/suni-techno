@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SUNI TECHNO</title>
+  <title>SUNI TECHNO // 100% HARD TECHNO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #08090c;
-      --surface: #0f1117;
+      --bg: #07080a;
+      --surface: #0e1015;
       --border: #1a1e27;
       --accent-off: #ff2a44;
       --accent-on: #00ff88;
-      --accent-glow: rgba(0, 255, 136, 0.4);
+      --accent-glow: rgba(0, 255, 136, 0.45);
       --text: #f0f2f5;
-      --dim: #6e7687;
+      --dim: #717a8c;
       --mono: 'JetBrains Mono', monospace;
       --display: 'Cabinet Grotesk', sans-serif;
     }
@@ -37,30 +37,32 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      padding: 24px 20px;
+      justify-content: center;
+      padding: 16px;
       overflow: hidden;
       background-image: 
-        radial-gradient(circle at 50% 35%, rgba(0, 255, 136, 0.03) 0%, transparent 60%),
+        radial-gradient(circle at 50% 30%, rgba(0, 255, 136, 0.04) 0%, transparent 65%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 32px 32px, 32px 32px;
+      background-size: 100% 100%, 28px 28px, 28px 28px;
     }
 
     .app-card {
       width: 100%;
-      max-width: 380px;
-      flex: 1;
+      max-width: 390px;
+      height: 94dvh;
+      max-height: 720px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       border: 1px solid var(--border);
-      border-radius: 20px;
-      background: rgba(14, 16, 22, 0.85);
-      backdrop-filter: blur(24px);
-      padding: 28px 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border-radius: 22px;
+      background: rgba(12, 14, 19, 0.92);
+      backdrop-filter: blur(20px);
+      padding: 24px 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      position: relative;
     }
 
     /* Top Bar */
@@ -75,7 +77,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 999px;
       font-family: var(--mono);
       font-size: 10px;
@@ -84,7 +86,7 @@
       background: rgba(255, 42, 68, 0.12);
       border: 1px solid rgba(255, 42, 68, 0.3);
       color: var(--accent-off);
-      transition: all 0.3s ease;
+      transition: all 0.3s;
     }
 
     .badge-status.live {
@@ -102,19 +104,19 @@
     }
 
     .badge-status.live .dot {
-      animation: blink 1.4s infinite ease-in-out;
+      animation: blink 1.3s infinite ease-in-out;
     }
 
     @keyframes blink {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 0.25; transform: scale(0.7); }
     }
 
     .app-title {
       font-family: var(--display);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 900;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       color: #fff;
     }
 
@@ -123,17 +125,21 @@
       font-size: 10px;
       color: var(--dim);
       letter-spacing: 0.08em;
+      background: #090a0d;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
 
-    /* Center Visualizer & Power Button */
+    /* Center Stage: Radar & Power Button */
     .center-stage {
       position: relative;
-      width: 260px;
-      height: 260px;
+      width: 250px;
+      height: 250px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 20px 0;
+      margin: 10px 0;
     }
 
     #radarCanvas {
@@ -146,13 +152,13 @@
     }
 
     .power-btn {
-      width: 160px;
-      height: 160px;
+      width: 154px;
+      height: 154px;
       border-radius: 50%;
-      background: radial-gradient(circle at 40% 30%, #1e2330, #0a0c10);
-      border: 2px solid #232a38;
+      background: radial-gradient(circle at 38% 28%, #1c212c, #090b0e);
+      border: 2px solid #202634;
       box-shadow: 
-        0 14px 32px rgba(0, 0, 0, 0.8),
+        0 14px 34px rgba(0, 0, 0, 0.85),
         inset 0 2px 4px rgba(255, 255, 255, 0.1),
         inset 0 -4px 8px rgba(0, 0, 0, 0.7);
       display: flex;
@@ -163,20 +169,20 @@
       cursor: pointer;
       outline: none;
       z-index: 2;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .power-btn:active {
-      transform: scale(0.95);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.95);
+      transform: scale(0.94);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.95);
     }
 
     .power-btn.on {
       border-color: var(--accent-on);
       box-shadow: 
-        0 0 40px var(--accent-glow),
-        0 10px 30px rgba(0, 0, 0, 0.8),
-        inset 0 0 16px rgba(0, 255, 136, 0.25);
+        0 0 38px var(--accent-glow),
+        0 12px 30px rgba(0, 0, 0, 0.85),
+        inset 0 0 16px rgba(0, 255, 136, 0.2);
     }
 
     .power-svg {
@@ -184,7 +190,7 @@
       height: 44px;
       fill: none;
       stroke: var(--dim);
-      stroke-width: 2.2;
+      stroke-width: 2.3;
       stroke-linecap: round;
       stroke-linejoin: round;
       transition: all 0.3s;
@@ -199,31 +205,38 @@
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       color: var(--dim);
       transition: color 0.3s;
     }
 
     .power-btn.on .power-state-text {
       color: var(--accent-on);
-      text-shadow: 0 0 10px var(--accent-on);
+      text-shadow: 0 0 8px var(--accent-on);
     }
 
-    /* Channel Switcher Card */
+    /* Channel Control Deck */
+    .deck-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .channel-card {
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 16px 18px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      position: relative;
+      gap: 6px;
+      transition: border-color 0.3s;
     }
 
     .channel-card.active {
-      border-color: rgba(0, 255, 136, 0.3);
+      border-color: rgba(0, 255, 136, 0.35);
     }
 
     .card-top {
@@ -232,51 +245,62 @@
       justify-content: space-between;
     }
 
-    .channel-label {
+    .channel-badge {
       font-family: var(--mono);
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.1em;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--accent-on);
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .channel-nav {
+    /* Tactile Channel Navigation Stepper */
+    .ch-nav-group {
       display: flex;
       align-items: center;
-      gap: 6px;
-      background: #090b0e;
-      border: 1px solid #1a1e27;
+      background: #07080b;
+      border: 1px solid #1a1f2a;
       border-radius: 8px;
-      padding: 2px 6px;
+      padding: 2px;
     }
 
-    .nav-btn {
+    .ch-nav-btn {
+      width: 44px;
+      height: 38px;
       background: transparent;
       border: none;
-      color: #9aa2b4;
+      color: #949db1;
       font-family: var(--mono);
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 700;
-      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      line-height: 1;
-      transition: color 0.15s;
+      border-radius: 6px;
+      transition: all 0.15s;
     }
 
-    .nav-btn:active {
+    .ch-nav-btn:active {
+      background: rgba(0, 255, 136, 0.15);
       color: var(--accent-on);
+      transform: scale(0.9);
     }
 
-    .channel-index {
+    .ch-indicator {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 700;
       color: #fff;
+      padding: 0 10px;
+      min-width: 72px;
+      text-align: center;
+      letter-spacing: 0.05em;
     }
 
     .station-name {
       font-family: var(--display);
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 900;
       color: #fff;
       text-transform: uppercase;
@@ -284,6 +308,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-top: 2px;
     }
 
     .station-genre {
@@ -293,58 +318,79 @@
       letter-spacing: 0.04em;
     }
 
-    /* Minimal Volume Bar */
-    .vol-wrapper {
+    /* Master Hardware Volume Deck */
+    .vol-deck {
       width: 100%;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 4px 2px;
+      background: #08090d;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
     }
 
-    .vol-txt {
+    .vol-label {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--dim);
+      letter-spacing: 0.06em;
+      min-width: 28px;
     }
 
     .vol-slider {
       flex: 1;
       -webkit-appearance: none;
       appearance: none;
-      height: 4px;
-      background: #1c212c;
-      border-radius: 2px;
+      height: 6px;
+      background: #191e28;
+      border-radius: 3px;
       outline: none;
     }
 
     .vol-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: #fff;
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      transition: transform 0.1s;
+    }
+
+    .vol-slider::-webkit-slider-thumb:active {
+      transform: scale(1.2);
+      background: var(--accent-on);
+      box-shadow: 0 0 14px var(--accent-on);
+    }
+
+    .vol-val {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #fff;
+      min-width: 38px;
+      text-align: right;
     }
   </style>
 </head>
 <body>
 
   <div class="app-card">
-    <!-- Top Status Bar -->
+    <!-- Top Bar -->
     <div class="top-bar">
       <div id="statusBadge" class="badge-status">
         <span class="dot"></span>
         <span id="statusText">STANDBY</span>
       </div>
       <div class="app-title">SUNI TECHNO</div>
-      <div class="bpm-tag">144 BPM</div>
+      <div class="bpm-tag" id="bpmTag">148 BPM</div>
     </div>
 
-    <!-- Center Stage: 1 Button Only -->
+    <!-- Center Stage: Giant Power Button -->
     <div class="center-stage">
-      <canvas id="radarCanvas" width="260" height="260"></canvas>
+      <canvas id="radarCanvas" width="250" height="250"></canvas>
       <button id="masterBtn" class="power-btn" onclick="togglePower()">
         <svg class="power-svg" viewBox="0 0 24 24">
           <path d="M12 2v10M18.36 6.64a9 9 0 1 1-12.73 0"/>
@@ -353,59 +399,72 @@
       </button>
     </div>
 
-    <!-- Channel Selector Card -->
-    <div id="channelCard" class="channel-card">
-      <div class="card-top">
-        <span class="channel-label">HARD TRANSMISSION</span>
-        <div class="channel-nav">
-          <button class="nav-btn" onclick="prevChannel()" title="Previous Channel">‹</button>
-          <span class="channel-index" id="chCounter">01 / 04</span>
-          <button class="nav-btn" onclick="nextChannel()" title="Next Channel">›</button>
+    <!-- Deck Controls -->
+    <div class="deck-container">
+      <!-- Channel Card with 44px Touch Steppers -->
+      <div id="channelCard" class="channel-card">
+        <div class="card-top">
+          <span class="channel-badge">PURE HARD TECHNO</span>
+          <div class="ch-nav-group">
+            <button class="ch-nav-btn" id="btnPrev" onclick="prevChannel()" title="Previous Channel">‹</button>
+            <span class="ch-indicator" id="chIndicator">01 / 04</span>
+            <button class="ch-nav-btn" id="btnNext" onclick="nextChannel()" title="Next Channel">›</button>
+          </div>
         </div>
+
+        <div class="station-name" id="chName">SUNSHINE HARD</div>
+        <div class="station-genre" id="chGenre">192 KBPS // HARDTECHNO GERMANY</div>
       </div>
 
-      <div class="station-name" id="chName">SUNSHINE HARD</div>
-      <div class="station-genre" id="chGenre">192 KBPS // HARDTECHNO GERMANY</div>
-
-      <div class="vol-wrapper">
-        <span class="vol-txt">VOL</span>
-        <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="setVol(this.value)">
+      <!-- Volume Deck (Dual WebAudio Gain + Element Volume) -->
+      <div class="vol-deck">
+        <span class="vol-label">VOL</span>
+        <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="changeVolume(this.value)">
+        <span class="vol-val" id="volText">85%</span>
       </div>
     </div>
   </div>
 
-  <!-- Native Audio (Zero CORS restriction) -->
+  <!-- Audio Element -->
   <audio id="liveAudio" preload="none"></audio>
 
   <script>
-    // 4 High-Grade Techno Channels
-    const CHANNELS = [
+    // 4 Top Dedicated World-Class Hard Techno Streams (100% Real Live Streams)
+    const HARD_CHANNELS = [
       {
         name: "SUNSHINE HARD",
-        genre: "192 KBPS // HARDTECHNO HQ",
-        url: "https://sunsl.streamabc.net/sunsl_w4pk5n9ou_0dfk-mp3-192-4232604"
+        genre: "192 KBPS // HARDTECHNO GERMANY",
+        url: "https://sunsl.streamabc.net/sunsl_w4pk5n9ou_0dfk-mp3-192-4232604",
+        bpm: "148 BPM"
       },
       {
-        name: "RAUTEMUSIK RAVE",
-        genre: "192 KBPS // HYPERTECHNO & HARDGROOVE",
-        url: "https://breakz-high.rautemusik.fm/?ref=suni"
+        name: "TECHNOLOVERS HARD",
+        genre: "192 KBPS // UNDERGROUND HARDTECHNO",
+        url: "https://stream.technolovers.fm/techno?ref=suni",
+        bpm: "150 BPM"
       },
       {
-        name: "SECTOR TECHNO",
-        genre: "256 KBPS // UNDERGROUND CLUB ROTATION",
-        url: "https://secure.live-streams.nl/main"
+        name: "RAUTEMUSIK INDUSTRIAL",
+        genre: "192 KBPS // RAW BERLIN SCHRANZ",
+        url: "https://streams.rautemusik.fm/techno/mp3-192/?ref=suni",
+        bpm: "155 BPM"
       },
       {
-        name: "909 SYNTH ENGINE",
-        genre: "ANALOG DSP // 144 BPM OFFLINE GENERATOR",
-        url: "synth"
+        name: "SECTOR TECHNO NL",
+        genre: "256 KBPS // AMSTERDAM HARD CLUB",
+        url: "https://secure.live-streams.nl/main",
+        bpm: "146 BPM"
       }
     ];
 
     let currentCh = 0;
     let isPlaying = false;
+    let currentVol = 0.85;
+
+    // Web Audio Gain routing for 100% mobile & desktop volume attenuation
     let audioCtx = null;
-    let synthInterval = null;
+    let gainNode = null;
+    let sourceNode = null;
 
     const audio = document.getElementById("liveAudio");
     const masterBtn = document.getElementById("masterBtn");
@@ -415,20 +474,45 @@
     const channelCard = document.getElementById("channelCard");
     const chName = document.getElementById("chName");
     const chGenre = document.getElementById("chGenre");
-    const chCounter = document.getElementById("chCounter");
+    const chIndicator = document.getElementById("chIndicator");
+    const bpmTag = document.getElementById("bpmTag");
+    const volText = document.getElementById("volText");
     const canvas = document.getElementById("radarCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Toggle Master Power
-    function togglePower() {
-      if (!isPlaying) {
-        turnOn();
-      } else {
-        turnOff();
+    // Init Web Audio Gain pipeline
+    function setupWebAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        gainNode = audioCtx.createGain();
+        gainNode.gain.value = currentVol;
+
+        try {
+          sourceNode = audioCtx.createMediaElementSource(audio);
+          sourceNode.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+        } catch (err) {
+          console.warn("Direct element routing fallback active:", err);
+        }
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
       }
     }
 
-    function turnOn() {
+    // Master Power Toggle
+    function togglePower() {
+      setupWebAudio();
+
+      if (!isPlaying) {
+        powerOn();
+      } else {
+        powerOff();
+      }
+    }
+
+    function powerOn() {
       isPlaying = true;
       masterBtn.classList.add("on");
       powerText.innerText = "ONLINE";
@@ -436,10 +520,10 @@
       statusText.innerText = "ON AIR";
       channelCard.classList.add("active");
 
-      playChannel(currentCh);
+      loadChannelStream(currentCh);
     }
 
-    function turnOff() {
+    function powerOff() {
       isPlaying = false;
       masterBtn.classList.remove("on");
       powerText.innerText = "POWER";
@@ -449,132 +533,76 @@
 
       audio.pause();
       audio.src = "";
-      stopSynth();
     }
 
-    // Play Channel
-    function playChannel(index) {
-      currentCh = index;
-      const ch = CHANNELS[index];
-
-      chName.innerText = ch.name;
-      chGenre.innerText = ch.genre;
-      chCounter.innerText = `0${index + 1} / 04`;
-
-      if (ch.url === "synth") {
-        audio.pause();
-        audio.src = "";
-        startSynth();
-      } else {
-        stopSynth();
-        audio.src = ch.url;
-        audio.load();
-        audio.play().catch(e => {
-          console.warn("Stream blocked or dropped, falling back to 909 synth:", e);
-          startSynth();
-        });
-      }
-    }
-
+    // Channel Switching
     function nextChannel() {
-      currentCh = (currentCh + 1) % CHANNELS.length;
-      updateUI();
-      if (isPlaying) playChannel(currentCh);
+      currentCh = (currentCh + 1) % HARD_CHANNELS.length;
+      switchActiveChannel(currentCh);
     }
 
     function prevChannel() {
-      currentCh = (currentCh - 1 + CHANNELS.length) % CHANNELS.length;
-      updateUI();
-      if (isPlaying) playChannel(currentCh);
+      currentCh = (currentCh - 1 + HARD_CHANNELS.length) % HARD_CHANNELS.length;
+      switchActiveChannel(currentCh);
     }
 
-    function updateUI() {
-      const ch = CHANNELS[currentCh];
-      chName.innerText = ch.name;
-      chGenre.innerText = ch.genre;
-      chCounter.innerText = `0${currentCh + 1} / 04`;
-    }
+    function switchActiveChannel(index) {
+      currentCh = index;
+      const target = HARD_CHANNELS[index];
 
-    function setVol(v) {
-      audio.volume = v;
-    }
+      chName.innerText = target.name;
+      chGenre.innerText = target.genre;
+      chIndicator.innerText = `0${index + 1} / 04`;
+      bpmTag.innerText = target.bpm;
 
-    // Web Audio 909 Offline Synth Fallback
-    function initContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-
-    function startSynth() {
-      initContext();
-      stopSynth();
-      const intervalMs = (60 / 144) * 1000 / 2;
-      let step = 0;
-
-      synthInterval = setInterval(() => {
-        if (!isPlaying || !audioCtx) return;
-        const t = audioCtx.currentTime;
-        if (step % 2 === 0) {
-          // 909 Kick
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.frequency.setValueAtTime(140, t);
-          osc.frequency.exponentialRampToValueAtTime(36, t + 0.12);
-          gain.gain.setValueAtTime(0.9, t);
-          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(t);
-          osc.stop(t + 0.28);
-        } else {
-          // Hat
-          const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.04, audioCtx.sampleRate);
-          const d = buf.getChannelData(0);
-          for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-          const src = audioCtx.createBufferSource();
-          src.buffer = buf;
-          const filt = audioCtx.createBiquadFilter();
-          filt.type = "highpass";
-          filt.frequency.value = 8000;
-          const gain = audioCtx.createGain();
-          gain.gain.setValueAtTime(0.2, t);
-          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.035);
-          src.connect(filt);
-          filt.connect(gain);
-          gain.connect(audioCtx.destination);
-          src.start(t);
-          src.stop(t + 0.04);
-        }
-        step = (step + 1) % 16;
-      }, intervalMs);
-    }
-
-    function stopSynth() {
-      if (synthInterval) {
-        clearInterval(synthInterval);
-        synthInterval = null;
+      if (isPlaying) {
+        loadChannelStream(index);
       }
     }
 
-    // Visualizer Canvas
+    function loadChannelStream(index) {
+      const target = HARD_CHANNELS[index];
+      audio.pause();
+      audio.src = target.url;
+      audio.load();
+      audio.volume = currentVol;
+
+      audio.play().catch(e => {
+        console.warn("Stream playback retry:", e);
+      });
+    }
+
+    // Hardware Volume Control (Dual Control)
+    function changeVolume(val) {
+      currentVol = parseFloat(val);
+      volText.innerText = Math.round(currentVol * 100) + "%";
+
+      // 1. Native element volume
+      audio.volume = currentVol;
+
+      // 2. WebAudio gain node volume (bypasses mobile OS volume locks)
+      if (gainNode && audioCtx) {
+        gainNode.gain.setValueAtTime(currentVol, audioCtx.currentTime);
+      }
+    }
+
+    // Visualizer Radar
     let angle = 0;
-    function renderVisualizer() {
-      requestAnimationFrame(renderVisualizer);
+    function renderRadar() {
+      requestAnimationFrame(renderRadar);
 
       const w = canvas.width;
       const h = canvas.height;
       const cx = w / 2;
       const cy = h / 2;
-      const radius = 105;
+      const radius = 100;
 
       ctx.clearRect(0, 0, w, h);
 
       // Radar Ring
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.strokeStyle = isPlaying ? "rgba(0, 255, 136, 0.4)" : "rgba(255, 42, 68, 0.2)";
+      ctx.strokeStyle = isPlaying ? "rgba(0, 255, 136, 0.45)" : "rgba(255, 42, 68, 0.25)";
       ctx.lineWidth = 1.5;
       ctx.setLineDash([4, 6]);
       ctx.stroke();
@@ -583,19 +611,19 @@
       if (!isPlaying) {
         angle += 0.015;
         ctx.beginPath();
-        ctx.arc(cx, cy, radius + 3, angle, angle + 0.6);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+        ctx.arc(cx, cy, radius + 2, angle, angle + 0.6);
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
         ctx.lineWidth = 2;
         ctx.stroke();
         return;
       }
 
-      // Live Pulse Wave
-      angle += 0.03;
-      const bars = 28;
+      // Active Techno Pulse Wave
+      angle += 0.035;
+      const bars = 32;
       for (let i = 0; i < bars; i++) {
         const theta = (i / bars) * Math.PI * 2 + angle;
-        const wave = Math.sin(angle * 3 + i) * 8 + 12;
+        const wave = Math.sin(angle * 4 + i) * (currentVol * 10) + 12;
 
         const x1 = cx + Math.cos(theta) * (radius - 2);
         const y1 = cy + Math.sin(theta) * (radius - 2);
@@ -610,7 +638,7 @@
         ctx.stroke();
       }
     }
-    renderVisualizer();
+    renderRadar();
 
     // Keyboard controls
     window.addEventListener("keydown", e => {
@@ -622,7 +650,7 @@
       }
     });
 
-    // Touch swipe left/right on channel card
+    // Touch Swipe on Channel Card
     let touchStartX = 0;
     channelCard.addEventListener("touchstart", e => {
       touchStartX = e.changedTouches[0].screenX;
