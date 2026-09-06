@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SUNI TECHNO // 24/7 HARD TRANSMISSIONS</title>
+  <title>SUNI TECHNO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07080a;
-      --surface: #0f1115;
-      --surface-border: #1e222b;
-      --accent: #ff2a44;
-      --accent-glow: rgba(255, 42, 68, 0.4);
-      --accent-neon: #00ff88;
-      --accent-neon-glow: rgba(0, 255, 136, 0.35);
-      --text-main: #f0f2f5;
-      --text-dim: #737b8c;
+      --bg: #08090c;
+      --surface: #0f1117;
+      --border: #1a1e27;
+      --accent-off: #ff2a44;
+      --accent-on: #00ff88;
+      --accent-glow: rgba(0, 255, 136, 0.4);
+      --text: #f0f2f5;
+      --dim: #6e7687;
       --mono: 'JetBrains Mono', monospace;
-      --sans: 'Outfit', sans-serif;
       --display: 'Cabinet Grotesk', sans-serif;
     }
 
@@ -27,167 +25,115 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      overflow-x: hidden;
+      padding: 24px 20px;
+      overflow: hidden;
       background-image: 
-        radial-gradient(circle at 50% 20%, rgba(255, 42, 68, 0.04) 0%, transparent 60%),
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        radial-gradient(circle at 50% 35%, rgba(0, 255, 136, 0.03) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
       background-size: 100% 100%, 32px 32px, 32px 32px;
     }
 
-    /* Container */
-    .app-shell {
+    .app-card {
       width: 100%;
-      max-width: 440px;
-      min-height: 100dvh;
+      max-width: 380px;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      border-left: 1px solid var(--surface-border);
-      border-right: 1px solid var(--surface-border);
-      background: rgba(10, 12, 16, 0.85);
-      backdrop-filter: blur(20px);
-      position: relative;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(14, 16, 22, 0.85);
+      backdrop-filter: blur(24px);
+      padding: 28px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
     /* Top Bar */
-    header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--surface-border);
+    .top-bar {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .badge-live {
+    .badge-status {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 42, 68, 0.12);
-      border: 1px solid rgba(255, 42, 68, 0.3);
       padding: 4px 10px;
       border-radius: 999px;
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
+      background: rgba(255, 42, 68, 0.12);
+      border: 1px solid rgba(255, 42, 68, 0.3);
+      color: var(--accent-off);
+      transition: all 0.3s ease;
     }
 
-    .badge-live.active {
+    .badge-status.live {
       background: rgba(0, 255, 136, 0.12);
       border-color: rgba(0, 255, 136, 0.35);
-      color: var(--accent-neon);
+      color: var(--accent-on);
     }
 
-    .pulse-dot {
+    .dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: currentColor;
-      box-shadow: 0 0 8px currentColor;
-      animation: pulse 1.6s infinite ease-in-out;
+      box-shadow: 0 0 6px currentColor;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.4); opacity: 0.4; }
+    .badge-status.live .dot {
+      animation: blink 1.4s infinite ease-in-out;
     }
 
-    .brand-title {
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+
+    .app-title {
       font-family: var(--display);
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 900;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      letter-spacing: 0.06em;
       color: #fff;
     }
 
-    .channel-tag {
+    .bpm-tag {
       font-family: var(--mono);
       font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: 0.12em;
+      color: var(--dim);
+      letter-spacing: 0.08em;
     }
 
-    /* Tab Navigation */
-    nav.tab-bar {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border-bottom: 1px solid var(--surface-border);
-      background: #090a0d;
-    }
-
-    .tab-btn {
-      background: transparent;
-      border: none;
-      padding: 12px 4px;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-dim);
-      letter-spacing: 0.06em;
-      cursor: pointer;
+    /* Center Visualizer & Power Button */
+    .center-stage {
       position: relative;
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    /* Views */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .view-panel {
-      display: none;
-      flex-direction: column;
-      flex: 1;
-      padding: 24px 20px;
-    }
-
-    .view-panel.active {
-      display: flex;
-    }
-
-    /* View 1: Main Player */
-    .visualizer-zone {
-      position: relative;
-      width: 270px;
-      height: 270px;
-      margin: 10px auto 24px;
+      width: 260px;
+      height: 260px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 20px 0;
     }
 
     #radarCanvas {
@@ -196,134 +142,120 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
       pointer-events: none;
     }
 
-    /* Brutalist Power Button */
-    .master-power-btn {
-      width: 170px;
-      height: 170px;
+    .power-btn {
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
-      background: radial-gradient(circle at 40% 30%, #1c202a, #0c0e12);
-      border: 2px solid #282f3d;
+      background: radial-gradient(circle at 40% 30%, #1e2330, #0a0c10);
+      border: 2px solid #232a38;
       box-shadow: 
-        0 12px 28px rgba(0, 0, 0, 0.7),
+        0 14px 32px rgba(0, 0, 0, 0.8),
         inset 0 2px 4px rgba(255, 255, 255, 0.1),
-        inset 0 -4px 8px rgba(0, 0, 0, 0.6);
+        inset 0 -4px 8px rgba(0, 0, 0, 0.7);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
-      position: relative;
+      outline: none;
       z-index: 2;
       transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .master-power-btn:active {
-      transform: scale(0.96);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
+    .power-btn:active {
+      transform: scale(0.95);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.95);
     }
 
-    .master-power-btn.on {
-      border-color: var(--accent-neon);
+    .power-btn.on {
+      border-color: var(--accent-on);
       box-shadow: 
-        0 0 35px var(--accent-neon-glow),
+        0 0 40px var(--accent-glow),
         0 10px 30px rgba(0, 0, 0, 0.8),
-        inset 0 0 16px rgba(0, 255, 136, 0.2);
+        inset 0 0 16px rgba(0, 255, 136, 0.25);
     }
 
-    .power-icon {
+    .power-svg {
       width: 44px;
       height: 44px;
       fill: none;
-      stroke: var(--text-dim);
+      stroke: var(--dim);
       stroke-width: 2.2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
     }
 
-    .master-power-btn.on .power-icon {
-      stroke: var(--accent-neon);
-      filter: drop-shadow(0 0 8px var(--accent-neon));
+    .power-btn.on .power-svg {
+      stroke: var(--accent-on);
+      filter: drop-shadow(0 0 8px var(--accent-on));
     }
 
-    .power-label {
+    .power-state-text {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      transition: color 0.3s ease;
+      letter-spacing: 0.18em;
+      color: var(--dim);
+      transition: color 0.3s;
     }
 
-    .master-power-btn.on .power-label {
-      color: var(--accent-neon);
-      text-shadow: 0 0 10px var(--accent-neon);
+    .power-btn.on .power-state-text {
+      color: var(--accent-on);
+      text-shadow: 0 0 10px var(--accent-on);
     }
 
-    /* Track Metadata Card */
-    .meta-card {
+    /* Channel Switcher Card */
+    .channel-card {
+      width: 100%;
       background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       padding: 16px 18px;
-      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       position: relative;
-      overflow: hidden;
     }
 
-    .meta-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--accent);
-      opacity: 0.7;
+    .channel-card.active {
+      border-color: rgba(0, 255, 136, 0.3);
     }
 
-    .meta-card.active::before {
-      background: var(--accent-neon);
-      box-shadow: 0 0 8px var(--accent-neon);
-    }
-
-    .meta-card-header {
+    .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
     }
 
-    .meta-station {
+    .channel-label {
       font-family: var(--mono);
       font-size: 10px;
+      color: var(--dim);
       letter-spacing: 0.1em;
-      color: var(--text-dim);
       text-transform: uppercase;
     }
 
-    .ch-stepper {
-      display: inline-flex;
+    .channel-nav {
+      display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       background: #090b0e;
       border: 1px solid #1a1e27;
-      border-radius: 6px;
-      padding: 2px 4px;
+      border-radius: 8px;
+      padding: 2px 6px;
     }
 
-    .ch-btn {
+    .nav-btn {
       background: transparent;
       border: none;
-      color: var(--text-dim);
+      color: #9aa2b4;
       font-family: var(--mono);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       padding: 0 6px;
       cursor: pointer;
@@ -331,86 +263,49 @@
       transition: color 0.15s;
     }
 
-    .ch-btn:hover, .ch-btn:active {
-      color: var(--accent-neon);
+    .nav-btn:active {
+      color: var(--accent-on);
     }
 
-    .ch-pill {
+    .channel-index {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: #fff;
-      letter-spacing: 0.05em;
     }
 
-    .meta-track {
+    .station-name {
       font-family: var(--display);
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 900;
-      letter-spacing: 0.02em;
       color: #fff;
-      line-height: 1.15;
       text-transform: uppercase;
+      letter-spacing: 0.02em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .meta-artist {
+    .station-genre {
       font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-dim);
+      font-size: 11px;
+      color: var(--dim);
       letter-spacing: 0.04em;
-      margin-top: 4px;
     }
 
-    /* Telemetry Grid */
-    .telemetry-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .telemetry-item {
-      background: #0b0d11;
-      border: 1px solid #161a22;
-      border-radius: 8px;
-      padding: 8px 4px;
-      text-align: center;
-    }
-
-    .telemetry-val {
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .telemetry-lbl {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--text-dim);
-      letter-spacing: 0.06em;
-      margin-top: 2px;
-    }
-
-    /* Volume & Mode Controls */
-    .ctrl-strip {
+    /* Minimal Volume Bar */
+    .vol-wrapper {
+      width: 100%;
       display: flex;
       align-items: center;
       gap: 12px;
-      background: #0b0d11;
-      border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      padding: 10px 14px;
+      padding: 4px 2px;
     }
 
-    .vol-icon {
-      color: var(--text-dim);
-      font-size: 13px;
+    .vol-txt {
       font-family: var(--mono);
+      font-size: 10px;
+      color: var(--dim);
     }
 
     .vol-slider {
@@ -418,7 +313,7 @@
       -webkit-appearance: none;
       appearance: none;
       height: 4px;
-      background: #202633;
+      background: #1c212c;
       border-radius: 2px;
       outline: none;
     }
@@ -430,593 +325,240 @@
       border-radius: 50%;
       background: #fff;
       cursor: pointer;
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-    }
-
-    .stream-select {
-      background: #141820;
-      border: 1px solid #252c3b;
-      color: #fff;
-      font-family: var(--mono);
-      font-size: 11px;
-      border-radius: 6px;
-      padding: 4px 8px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    /* View 2: Schedule */
-    .schedule-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .schedule-card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      position: relative;
-    }
-
-    .schedule-card.current {
-      border-color: var(--accent);
-      background: linear-gradient(90deg, rgba(255, 42, 68, 0.06), transparent);
-    }
-
-    .sched-time {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-dim);
-      background: #090b0e;
-      padding: 4px 8px;
-      border-radius: 6px;
-      border: 1px solid #1a1e27;
-      white-space: nowrap;
-    }
-
-    .schedule-card.current .sched-time {
-      color: var(--accent);
-      border-color: rgba(255, 42, 68, 0.3);
-    }
-
-    .sched-info {
-      flex: 1;
-    }
-
-    .sched-title {
-      font-family: var(--display);
-      font-size: 15px;
-      font-weight: 800;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .sched-host {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
-
-    /* View 3: Connect & Terminal */
-    .terminal-box {
-      flex: 1;
-      background: #07090c;
-      border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .term-header {
-      background: #0d1016;
-      border-bottom: 1px solid #1a1e27;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-    }
-
-    .term-body {
-      flex: 1;
-      padding: 12px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    .term-line {
-      display: flex;
-      gap: 6px;
-    }
-
-    .term-user {
-      color: var(--accent);
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .term-msg {
-      color: #cfd6e4;
-      word-break: break-word;
-    }
-
-    .term-input-bar {
-      border-top: 1px solid #1a1e27;
-      display: flex;
-      padding: 8px;
-      gap: 8px;
-      background: #0a0c10;
-    }
-
-    .term-input {
-      flex: 1;
-      background: #11141b;
-      border: 1px solid #202633;
-      border-radius: 6px;
-      padding: 6px 10px;
-      color: #fff;
-      font-family: var(--mono);
-      font-size: 11px;
-      outline: none;
-    }
-
-    .term-send {
-      background: var(--accent);
-      border: none;
-      color: #fff;
-      font-family: var(--mono);
-      font-weight: 700;
-      font-size: 11px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* Footer */
-    footer {
-      padding: 12px 20px;
-      border-top: 1px solid var(--surface-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-    }
-
-    .footer-link {
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-link:hover {
-      color: #fff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
     }
   </style>
 </head>
 <body>
 
-  <div class="app-shell">
-    <!-- Header -->
-    <header>
-      <div id="liveBadge" class="badge-live">
-        <span class="pulse-dot"></span>
-        <span id="liveBadgeText">OFF AIR</span>
+  <div class="app-card">
+    <!-- Top Status Bar -->
+    <div class="top-bar">
+      <div id="statusBadge" class="badge-status">
+        <span class="dot"></span>
+        <span id="statusText">STANDBY</span>
       </div>
-      <div class="brand-title">SUNI TECHNO</div>
-      <div class="channel-tag">TXR // 144BPM</div>
-    </header>
+      <div class="app-title">SUNI TECHNO</div>
+      <div class="bpm-tag">144 BPM</div>
+    </div>
 
-    <!-- Tabs -->
-    <nav class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('player')">01 PLAYER</button>
-      <button class="tab-btn" onclick="switchTab('schedule')">02 SCHEDULE</button>
-      <button class="tab-btn" onclick="switchTab('connect')">03 CONNECT</button>
-    </nav>
+    <!-- Center Stage: 1 Button Only -->
+    <div class="center-stage">
+      <canvas id="radarCanvas" width="260" height="260"></canvas>
+      <button id="masterBtn" class="power-btn" onclick="togglePower()">
+        <svg class="power-svg" viewBox="0 0 24 24">
+          <path d="M12 2v10M18.36 6.64a9 9 0 1 1-12.73 0"/>
+        </svg>
+        <span id="powerText" class="power-state-text">POWER</span>
+      </button>
+    </div>
 
-    <!-- Main View Area -->
-    <main>
-      <!-- Panel 1: Player View -->
-      <section id="tab-player" class="view-panel active">
-        <!-- Visualizer & Master Power Button -->
-        <div class="visualizer-zone">
-          <canvas id="radarCanvas" width="270" height="270"></canvas>
-          <button id="masterPowerBtn" class="master-power-btn" onclick="togglePlayback()">
-            <svg class="power-icon" viewBox="0 0 24 24">
-              <path d="M12 2v10M18.36 6.64a9 9 0 1 1-12.73 0"/>
-            </svg>
-            <span id="powerLabel" class="power-label">POWER</span>
-          </button>
+    <!-- Channel Selector Card -->
+    <div id="channelCard" class="channel-card">
+      <div class="card-top">
+        <span class="channel-label">HARD TRANSMISSION</span>
+        <div class="channel-nav">
+          <button class="nav-btn" onclick="prevChannel()" title="Previous Channel">‹</button>
+          <span class="channel-index" id="chCounter">01 / 04</span>
+          <button class="nav-btn" onclick="nextChannel()" title="Next Channel">›</button>
         </div>
+      </div>
 
-        <!-- Metadata Card -->
-        <div id="metaCard" class="meta-card">
-          <div class="meta-card-header">
-            <div class="meta-station" id="stationName">LIVE RADIO TRANSMISSIONS</div>
-            <div class="ch-stepper">
-              <button class="ch-btn" onclick="prevStream()" title="Previous Channel">‹</button>
-              <span class="ch-pill" id="chIndicator">CH 01/04</span>
-              <button class="ch-btn" onclick="nextStream()" title="Next Channel">›</button>
-            </div>
-          </div>
-          <div class="meta-track" id="trackTitle">RESONANCE</div>
-          <div class="meta-artist" id="artistName">SYSTEMATIC // HARD GROOVE</div>
-        </div>
+      <div class="station-name" id="chName">SUNSHINE HARD</div>
+      <div class="station-genre" id="chGenre">192 KBPS // HARDTECHNO GERMANY</div>
 
-        <!-- Telemetry -->
-        <div class="telemetry-grid">
-          <div class="telemetry-item">
-            <div class="telemetry-val" id="bpmVal">144.0</div>
-            <div class="telemetry-lbl">BPM</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="telemetry-val">192K</div>
-            <div class="telemetry-lbl">AUDIO</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="telemetry-val" id="peakVal">-1.4dB</div>
-            <div class="telemetry-lbl">PEAK</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="telemetry-val" id="listenersVal">1,842</div>
-            <div class="telemetry-lbl">RAVERS</div>
-          </div>
-        </div>
-
-        <!-- Controls Strip -->
-        <div class="ctrl-strip">
-          <span class="vol-icon">VOL</span>
-          <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="setVolume(this.value)">
-          <select class="stream-select" id="streamSelect" onchange="changeStream(this.value)">
-            <option value="0">SUNSHINE HARD</option>
-            <option value="1">RAUTEMUSIK RAVE</option>
-            <option value="2">INTENSE TECHNO</option>
-            <option value="synth">909 SYNTH OFFLINE</option>
-          </select>
-        </div>
-      </section>
-
-      <!-- Panel 2: Schedule View -->
-      <section id="tab-schedule" class="view-panel">
-        <div class="schedule-list">
-          <div class="schedule-card current">
-            <div class="sched-time">18:00 - 20:00</div>
-            <div class="sched-info">
-              <div class="sched-title">DEEP PULSE SESSIONS</div>
-              <div class="sched-host">DJ LONA // INDUSTRIAL HYBRID</div>
-            </div>
-          </div>
-
-          <div class="schedule-card">
-            <div class="sched-time">20:00 - 22:00</div>
-            <div class="sched-info">
-              <div class="sched-title">DARK MATTER RADIUS</div>
-              <div class="sched-host">ORBITAL FLOW // BERLIN WAREHOUSE</div>
-            </div>
-          </div>
-
-          <div class="schedule-card">
-            <div class="sched-time">22:00 - 00:00</div>
-            <div class="sched-info">
-              <div class="sched-title">AFTERHOURS MINIMAL</div>
-              <div class="sched-host">NEON PULSE // PEAK HYPNOTIC</div>
-            </div>
-          </div>
-
-          <div class="schedule-card">
-            <div class="sched-time">00:00 - 04:00</div>
-            <div class="sched-info">
-              <div class="sched-title">SCHRANZ INVASION</div>
-              <div class="sched-host">SYSTEM ROTATION // 155+ BPM</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Panel 3: Connect View -->
-      <section id="tab-connect" class="view-panel">
-        <div class="terminal-box">
-          <div class="term-header">
-            <span>TXR // LIVE SHOUTBOX</span>
-            <span>NET: ENCRYPTED</span>
-          </div>
-          <div class="term-body" id="termBody">
-            <div class="term-line"><span class="term-user">SYS:</span><span class="term-msg">Connected to Berlin cluster node 04.</span></div>
-            <div class="term-line"><span class="term-user">Klaus:</span><span class="term-msg">What track is this? Massive kick!</span></div>
-            <div class="term-line"><span class="term-user">Elena_T:</span><span class="term-msg">Set is live now! Loving the vibes! 🔥</span></div>
-            <div class="term-line"><span class="term-user">X99:</span><span class="term-msg">144 BPM relentless groove.</span></div>
-          </div>
-          <div class="term-input-bar">
-            <input type="text" id="termInput" class="term-input" placeholder="Say something..." onkeydown="if(event.key==='Enter') sendChat()">
-            <button class="term-send" onclick="sendChat()">SEND</button>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-      <span>STATION ID: #TXR-909</span>
-      <a href="https://github.com/3krbkbkrbrbg/suni-techno" target="_blank" class="footer-link">SOURCE // GITHUB</a>
-    </footer>
+      <div class="vol-wrapper">
+        <span class="vol-txt">VOL</span>
+        <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="setVol(this.value)">
+      </div>
+    </div>
   </div>
 
-  <!-- Audio Element -->
-  <audio id="audioElement" crossorigin="anonymous" preload="none"></audio>
+  <!-- Native Audio (Zero CORS restriction) -->
+  <audio id="liveAudio" preload="none"></audio>
 
   <script>
-    // Stream Directory
-    const STREAMS = [
-      { name: "SUNSHINE HARD", url: "https://sunsl.streamabc.net/sunsl_w4pk5n9ou_0dfk-mp3-192-4232604", track: "RESONANCE", artist: "SYSTEMATIC // HARD GROOVE" },
-      { name: "RAUTEMUSIK RAVE", url: "https://breakz-high.rautemusik.fm/?ref=suni", track: "HYPER TECHNO WAVE", artist: "RAVE SYNDICATE" },
-      { name: "INTENSE TECHNO", url: "https://secure.live-streams.nl/main", track: "DARK SECTOR", artist: "INTENSE ROTATION" }
+    // 4 High-Grade Techno Channels
+    const CHANNELS = [
+      {
+        name: "SUNSHINE HARD",
+        genre: "192 KBPS // HARDTECHNO HQ",
+        url: "https://sunsl.streamabc.net/sunsl_w4pk5n9ou_0dfk-mp3-192-4232604"
+      },
+      {
+        name: "RAUTEMUSIK RAVE",
+        genre: "192 KBPS // HYPERTECHNO & HARDGROOVE",
+        url: "https://breakz-high.rautemusik.fm/?ref=suni"
+      },
+      {
+        name: "SECTOR TECHNO",
+        genre: "256 KBPS // UNDERGROUND CLUB ROTATION",
+        url: "https://secure.live-streams.nl/main"
+      },
+      {
+        name: "909 SYNTH ENGINE",
+        genre: "ANALOG DSP // 144 BPM OFFLINE GENERATOR",
+        url: "synth"
+      }
     ];
 
-    let currentStreamIndex = 0;
+    let currentCh = 0;
     let isPlaying = false;
-    let isSynthMode = false;
     let audioCtx = null;
-    let analyser = null;
-    let sourceNode = null;
-    let synthTimer = null;
-    const audio = document.getElementById("audioElement");
+    let synthInterval = null;
 
-    // UI elements
-    const masterPowerBtn = document.getElementById("masterPowerBtn");
-    const powerLabel = document.getElementById("powerLabel");
-    const liveBadge = document.getElementById("liveBadge");
-    const liveBadgeText = document.getElementById("liveBadgeText");
-    const metaCard = document.getElementById("metaCard");
-    const trackTitle = document.getElementById("trackTitle");
-    const artistName = document.getElementById("artistName");
-    const stationName = document.getElementById("stationName");
+    const audio = document.getElementById("liveAudio");
+    const masterBtn = document.getElementById("masterBtn");
+    const powerText = document.getElementById("powerText");
+    const statusBadge = document.getElementById("statusBadge");
+    const statusText = document.getElementById("statusText");
+    const channelCard = document.getElementById("channelCard");
+    const chName = document.getElementById("chName");
+    const chGenre = document.getElementById("chGenre");
+    const chCounter = document.getElementById("chCounter");
     const canvas = document.getElementById("radarCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Init Audio Context & Analyser
-    function initAudioEngine() {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-        analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 128;
-
-        try {
-          sourceNode = audioCtx.createMediaElementSource(audio);
-          sourceNode.connect(analyser);
-          analyser.connect(audioCtx.destination);
-        } catch (e) {
-          console.warn("Direct stream routing error:", e);
-        }
-      }
-      if (audioCtx.state === "suspended") {
-        audioCtx.resume();
-      }
-    }
-
-    // Toggle Play / Power
-    async function togglePlayback() {
-      initAudioEngine();
-
+    // Toggle Master Power
+    function togglePower() {
       if (!isPlaying) {
-        startPlay();
+        turnOn();
       } else {
-        stopPlay();
+        turnOff();
       }
     }
 
-    function startPlay() {
+    function turnOn() {
       isPlaying = true;
-      masterPowerBtn.classList.add("on");
-      powerLabel.innerText = "ONLINE";
-      liveBadge.classList.add("active");
-      liveBadgeText.innerText = "ON AIR";
-      metaCard.classList.add("active");
+      masterBtn.classList.add("on");
+      powerText.innerText = "ONLINE";
+      statusBadge.classList.add("live");
+      statusText.innerText = "ON AIR";
+      channelCard.classList.add("active");
 
-      const selectVal = document.getElementById("streamSelect").value;
-      if (selectVal === "synth") {
-        startSynthEngine();
-      } else {
-        stopSynthEngine();
-        loadAndPlayStream(parseInt(selectVal, 10));
-      }
+      playChannel(currentCh);
     }
 
-    function stopPlay() {
+    function turnOff() {
       isPlaying = false;
-      masterPowerBtn.classList.remove("on");
-      powerLabel.innerText = "POWER";
-      liveBadge.classList.remove("active");
-      liveBadgeText.innerText = "OFF AIR";
-      metaCard.classList.remove("active");
+      masterBtn.classList.remove("on");
+      powerText.innerText = "POWER";
+      statusBadge.classList.remove("live");
+      statusText.innerText = "STANDBY";
+      channelCard.classList.remove("active");
 
       audio.pause();
       audio.src = "";
-      stopSynthEngine();
+      stopSynth();
     }
 
-    function loadAndPlayStream(index) {
-      currentStreamIndex = index;
-      const s = STREAMS[index];
-      stationName.innerText = "LIVE // " + s.name;
-      trackTitle.innerText = s.track;
-      artistName.innerText = s.artist;
-      document.getElementById("chIndicator").innerText = `CH 0${index + 1}/04`;
-      document.getElementById("streamSelect").value = index;
+    // Play Channel
+    function playChannel(index) {
+      currentCh = index;
+      const ch = CHANNELS[index];
 
-      audio.src = s.url;
-      audio.play().catch(err => {
-        console.warn("Stream playback failed, starting offline 909 synth fallback:", err);
-        startSynthEngine();
-      });
-    }
+      chName.innerText = ch.name;
+      chGenre.innerText = ch.genre;
+      chCounter.innerText = `0${index + 1} / 04`;
 
-    function switchToChannel(index) {
-      currentStreamIndex = index;
-      document.getElementById("chIndicator").innerText = `CH 0${index + 1}/04`;
-      document.getElementById("streamSelect").value = index === 3 ? "synth" : index;
-
-      if (index === 3) {
+      if (ch.url === "synth") {
         audio.pause();
         audio.src = "";
-        startSynthEngine();
+        startSynth();
       } else {
-        stopSynthEngine();
-        if (isPlaying) {
-          loadAndPlayStream(index);
-        } else {
-          const s = STREAMS[index];
-          stationName.innerText = "LIVE // " + s.name;
-          trackTitle.innerText = s.track;
-          artistName.innerText = s.artist;
-        }
+        stopSynth();
+        audio.src = ch.url;
+        audio.load();
+        audio.play().catch(e => {
+          console.warn("Stream blocked or dropped, falling back to 909 synth:", e);
+          startSynth();
+        });
       }
     }
 
-    function nextStream() {
-      const next = (currentStreamIndex + 1) % 4;
-      switchToChannel(next);
+    function nextChannel() {
+      currentCh = (currentCh + 1) % CHANNELS.length;
+      updateUI();
+      if (isPlaying) playChannel(currentCh);
     }
 
-    function prevStream() {
-      const prev = (currentStreamIndex - 1 + 4) % 4;
-      switchToChannel(prev);
+    function prevChannel() {
+      currentCh = (currentCh - 1 + CHANNELS.length) % CHANNELS.length;
+      updateUI();
+      if (isPlaying) playChannel(currentCh);
     }
 
-    function changeStream(val) {
-      if (val === "synth") {
-        switchToChannel(3);
-      } else {
-        switchToChannel(parseInt(val, 10));
-      }
+    function updateUI() {
+      const ch = CHANNELS[currentCh];
+      chName.innerText = ch.name;
+      chGenre.innerText = ch.genre;
+      chCounter.innerText = `0${currentCh + 1} / 04`;
     }
 
-    // Touch swipe & keyboard navigation
-    let touchStartX = 0;
-    metaCard.addEventListener("touchstart", e => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    metaCard.addEventListener("touchend", e => {
-      const touchEndX = e.changedTouches[0].screenX;
-      const diff = touchEndX - touchStartX;
-      if (diff > 45) prevStream();
-      if (diff < -45) nextStream();
-    }, { passive: true });
-
-    window.addEventListener("keydown", e => {
-      if (e.target.tagName === "INPUT") return;
-      if (e.key === "ArrowRight") nextStream();
-      if (e.key === "ArrowLeft") prevStream();
-      if (e.key === " " || e.key === "Enter") {
-        e.preventDefault();
-        togglePlayback();
-      }
-    });
-
-    function setVolume(v) {
+    function setVol(v) {
       audio.volume = v;
     }
 
-    // Offline 144 BPM 909 Synthesizer
-    function startSynthEngine() {
-      isSynthMode = true;
-      stationName.innerText = "INTERNAL // 909 SYNTHESIS";
-      trackTitle.innerText = "ANALOG SCHRANZ 144";
-      artistName.innerText = "DSP HARD ENGINE // ZERO LATENCY";
+    // Web Audio 909 Offline Synth Fallback
+    function initContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") audioCtx.resume();
+    }
 
-      if (synthTimer) clearInterval(synthTimer);
-      const intervalMs = (60 / 144) * 1000 / 2; // 8th notes
+    function startSynth() {
+      initContext();
+      stopSynth();
+      const intervalMs = (60 / 144) * 1000 / 2;
       let step = 0;
 
-      synthTimer = setInterval(() => {
+      synthInterval = setInterval(() => {
         if (!isPlaying || !audioCtx) return;
         const t = audioCtx.currentTime;
-
-        // Kick on quarter notes
         if (step % 2 === 0) {
-          play909Kick(t);
-        }
-        // Hihat on offbeat
-        if (step % 2 === 1) {
-          playHiHat(t);
+          // 909 Kick
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.frequency.setValueAtTime(140, t);
+          osc.frequency.exponentialRampToValueAtTime(36, t + 0.12);
+          gain.gain.setValueAtTime(0.9, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(t);
+          osc.stop(t + 0.28);
+        } else {
+          // Hat
+          const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.04, audioCtx.sampleRate);
+          const d = buf.getChannelData(0);
+          for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+          const src = audioCtx.createBufferSource();
+          src.buffer = buf;
+          const filt = audioCtx.createBiquadFilter();
+          filt.type = "highpass";
+          filt.frequency.value = 8000;
+          const gain = audioCtx.createGain();
+          gain.gain.setValueAtTime(0.2, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.035);
+          src.connect(filt);
+          filt.connect(gain);
+          gain.connect(audioCtx.destination);
+          src.start(t);
+          src.stop(t + 0.04);
         }
         step = (step + 1) % 16;
       }, intervalMs);
     }
 
-    function stopSynthEngine() {
-      isSynthMode = false;
-      if (synthTimer) {
-        clearInterval(synthTimer);
-        synthTimer = null;
+    function stopSynth() {
+      if (synthInterval) {
+        clearInterval(synthInterval);
+        synthInterval = null;
       }
     }
 
-    function play909Kick(t) {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      osc.frequency.setValueAtTime(140, t);
-      osc.frequency.exponentialRampToValueAtTime(38, t + 0.12);
-
-      gain.gain.setValueAtTime(1.0, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
-
-      osc.connect(gain);
-      gain.connect(analyser);
-      analyser.connect(audioCtx.destination);
-
-      osc.start(t);
-      osc.stop(t + 0.3);
-    }
-
-    function playHiHat(t) {
-      const bufferSize = audioCtx.sampleRate * 0.05;
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = "highpass";
-      filter.frequency.value = 7500;
-
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.3, t);
-      gain.gain.exponentialRampToValueAtTime(0.01, t + 0.04);
-
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(analyser);
-      analyser.connect(audioCtx.destination);
-
-      noise.start(t);
-      noise.stop(t + 0.05);
-    }
-
-    // Canvas Visualizer Radar & Waves
+    // Visualizer Canvas
     let angle = 0;
     function renderVisualizer() {
       requestAnimationFrame(renderVisualizer);
@@ -1025,110 +567,72 @@
       const h = canvas.height;
       const cx = w / 2;
       const cy = h / 2;
-      const radius = 115;
+      const radius = 105;
 
       ctx.clearRect(0, 0, w, h);
 
-      // Ambient outer ring
+      // Radar Ring
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.strokeStyle = isPlaying ? "rgba(0, 255, 136, 0.35)" : "rgba(255, 42, 68, 0.2)";
+      ctx.strokeStyle = isPlaying ? "rgba(0, 255, 136, 0.4)" : "rgba(255, 42, 68, 0.2)";
       ctx.lineWidth = 1.5;
       ctx.setLineDash([4, 6]);
       ctx.stroke();
       ctx.setLineDash([]);
 
       if (!isPlaying) {
-        // Idle scanner
-        angle += 0.02;
+        angle += 0.015;
         ctx.beginPath();
-        ctx.arc(cx, cy, radius + 4, angle, angle + 0.5);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+        ctx.arc(cx, cy, radius + 3, angle, angle + 0.6);
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
         ctx.lineWidth = 2;
         ctx.stroke();
         return;
       }
 
-      // Read audio data
-      let freqArray = new Uint8Array(32);
-      if (analyser) {
-        analyser.getByteFrequencyData(freqArray);
-      }
-
-      const count = 36;
-      for (let i = 0; i < count; i++) {
-        const theta = (i / count) * Math.PI * 2 + angle;
-        const val = freqArray[i % freqArray.length] || 30;
-        const barLen = (val / 255) * 22;
+      // Live Pulse Wave
+      angle += 0.03;
+      const bars = 28;
+      for (let i = 0; i < bars; i++) {
+        const theta = (i / bars) * Math.PI * 2 + angle;
+        const wave = Math.sin(angle * 3 + i) * 8 + 12;
 
         const x1 = cx + Math.cos(theta) * (radius - 2);
         const y1 = cy + Math.sin(theta) * (radius - 2);
-        const x2 = cx + Math.cos(theta) * (radius + barLen);
-        const y2 = cy + Math.sin(theta) * (radius + barLen);
+        const x2 = cx + Math.cos(theta) * (radius + wave);
+        const y2 = cy + Math.sin(theta) * (radius + wave);
 
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-        ctx.strokeStyle = isPlaying ? "#00ff88" : "#ff2a44";
-        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = "#00ff88";
+        ctx.lineWidth = 2.2;
         ctx.stroke();
       }
-
-      angle += 0.008;
-
-      // Peak readout update
-      const avg = freqArray.reduce((a, b) => a + b, 0) / (freqArray.length || 1);
-      const db = (avg > 0 ? (avg / 255 * 6 - 8).toFixed(1) : "-24.0");
-      document.getElementById("peakVal").innerText = db + "dB";
     }
     renderVisualizer();
 
-    // Tab Switching
-    function switchTab(tabId) {
-      document.querySelectorAll(".tab-btn").forEach((btn, idx) => {
-        btn.classList.toggle("active", (idx === 0 && tabId === "player") || (idx === 1 && tabId === "schedule") || (idx === 2 && tabId === "connect"));
-      });
+    // Keyboard controls
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight") nextChannel();
+      if (e.key === "ArrowLeft") prevChannel();
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        togglePower();
+      }
+    });
 
-      document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
-      document.getElementById("tab-" + tabId).classList.add("active");
-    }
+    // Touch swipe left/right on channel card
+    let touchStartX = 0;
+    channelCard.addEventListener("touchstart", e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
 
-    // Shoutbox Chat
-    function sendChat() {
-      const input = document.getElementById("termInput");
-      const txt = input.value.trim();
-      if (!txt) return;
-
-      const body = document.getElementById("termBody");
-      const line = document.createElement("div");
-      line.className = "term-line";
-      line.innerHTML = `<span class="term-user">YOU:</span><span class="term-msg">${escapeHtml(txt)}</span>`;
-      body.appendChild(line);
-      input.value = "";
-      body.scrollTop = body.scrollHeight;
-
-      // Simulated underground bot reply
-      setTimeout(() => {
-        const botLine = document.createElement("div");
-        botLine.className = "term-line";
-        const replies = ["Rave on! 🔊", "Hard groove never stops.", "Heavy resonance right there.", "Track ID: Unknown Modular Acid."];
-        const pick = replies[Math.floor(Math.random() * replies.length)];
-        botLine.innerHTML = `<span class="term-user">TXR_BOT:</span><span class="term-msg">${pick}</span>`;
-        body.appendChild(botLine);
-        body.scrollTop = body.scrollHeight;
-      }, 1200);
-    }
-
-    function escapeHtml(s) {
-      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    // Dynamic listener counter fluctuation
-    setInterval(() => {
-      const el = document.getElementById("listenersVal");
-      const base = 1840;
-      el.innerText = (base + Math.floor(Math.random() * 35)).toLocaleString();
-    }, 4000);
+    channelCard.addEventListener("touchend", e => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (diff > 40) prevChannel();
+      if (diff < -40) nextChannel();
+    }, { passive: true });
   </script>
 </body>
 </html>
