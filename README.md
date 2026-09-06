@@ -1,26 +1,42 @@
-# SUNI TECHNO // 24/7 HARD TRANSMISSIONS
+# SUNI TECHNO // 24/7 MINIMAL & HARD TECHNO TRANSMISSIONS
 
-> Minimalist, brutalist, single-button underground hard techno radio web application.
+> Minimalist, brutalist, tactile underground Minimal Techno radio web application with 10 verified live streams.
+> وب‌اپلیکیشن مینی‌مالیست و بلک باکس استریم رادیو آنلاین تکنو با ۱۰ کانال زنده تست‌شده بدون افت کیفیت.
 
-- **Live Web App**: [https://3krbkbkrbrbg.github.io/suni-techno/](https://3krbkbkrbrbg.github.io/suni-techno/)
-- **Repository**: [https://github.com/3krbkbkrbrbg/suni-techno](https://github.com/3krbkbkrbrbg/suni-techno)
-
----
-
-## Features
-
-- **Single Master Power Button**: One tactile tap turns the entire stream pipeline ON / OFF.
-- **24/7 Hard Techno Channels**: Direct lossless streaming from Sunshine Live Hardtechno, RauteMusik Rave/Hypertechno, and Intense Techno.
-- **Zero-Drop Offline Synth Engine**: Built-in Web Audio API 144 BPM 909 kick/hat synthesizer fallback when networks buffer or disconnect.
-- **Audio Visualizer Radar**: Dynamic HTML5 Canvas rendering real-time FFT frequency bars and orbital radar rings.
-- **Underground Brutalist UI**: Dark industrial design inspired by Berlin warehouse aesthetics, monospace telemetry (BPM, bitrates, peak dB), lineup schedule, and live chat shoutbox.
+- **Live Web App / نسخه آنلاین**: [https://3krbkbkrbrbg.github.io/suni-techno/](https://3krbkbkrbrbg.github.io/suni-techno/)
+- **GitHub Repository**: [https://github.com/3krbkbkrbrbg/suni-techno](https://github.com/3krbkbkrbrbg/suni-techno)
 
 ---
 
-## Local Development
+## 10 Verified Minimal Techno Channels // لیست ۱۰ کانال زنده
+
+1. **MINIMALRADIO DE** (128k MP3 // Pure Minimal Beats, 127 BPM)
+2. **TECHNOLOVERS MINIMAL** (192k MP3 // German Minimal Techno, 128 BPM)
+3. **RECORD MINIMAL** (96k AAC // Deep Minimal & Dub, 125 BPM)
+4. **UZIC TECHNO MINIMAL** (128k AAC // Swiss Minimal Underground, 126 BPM)
+5. **ANIMA DUB TECHNO** (256k AAC // Atmospheric Dub Techno, 124 BPM)
+6. **ROMINIMAL CLUB** (128k AAC // Bucharest Minimal Sound, 126 BPM)
+7. **1000 TECHNO RAW** (128k MP3 // Raw Berlin Underground, 130 BPM)
+8. **0N TECHNO BERLIN** (128k MP3 // Berlin Techno Direct, 132 BPM)
+9. **181.FM TECHNO CLUB** (128k MP3 // Techno Club Archive, 140 BPM)
+10. **TECHNOBASE FM** (192k MP3 // Pure Hard Dance & Techno, 146 BPM)
+
+---
+
+## Features // قابلیت‌ها
+
+- **Single Master Power Button**: کلید لمسی مرکزی برای روشن/خاموش کردن کل ایستگاه.
+- **10 Verified Streams**: اتصال همزمان به بهترین ایستگاه‌های تکنو مینیمال آلمان، سوئیس، رومانی و برلین.
+- **Complete Hardware Volume Isolation**: ایزولاسیون کامل دک ولوم از تعویض کانال‌ها و بدون تداخل کلیدهای ناوبری.
+- **HTML5 Radar Visualizer**: انیمیشن راداری مدرن متناسب با ریتم و توان خروجی استریم.
+- **Mobile Responsive & PWA-Ready**: بهینه‌سازی کامل برای مرورگرهای اندروید و آیفون با طراحی دارک بروتالیست.
+- **Zero Latency Direct Streaming**: پخش مستقیم نیتیو بدون سرور واسط و بدون تاخیر.
+
+---
+
+## Run Locally // اجرای محلی
 
 ```bash
-cd suni-techno
 python3 -m http.server 8080
 ```
-Open `http://localhost:8080` in any browser.
+Open [http://localhost:8080](http://localhost:8080) in your browser.
