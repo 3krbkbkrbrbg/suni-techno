@@ -418,7 +418,7 @@
         <div class="station-genre" id="chGenre">192 KBPS // HARDTECHNO GERMANY</div>
       </div>
 
-      <!-- Volume Deck (Dual WebAudio Gain + Element Volume — 100% Isolated) -->
+      <!-- Volume Deck (Direct Native Volume — 100% Isolated) -->
       <div class="vol-deck" id="volDeck" onclick="event.stopPropagation()" ontouchstart="event.stopPropagation()" ontouchend="event.stopPropagation()">
         <span class="vol-label">VOL</span>
         <input type="range" id="volSlider" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="changeVolume(this.value)" onkeydown="event.stopPropagation()" onkeyup="event.stopPropagation()" aria-label="Volume">
@@ -431,7 +431,7 @@
   <audio id="liveAudio" preload="none"></audio>
 
   <script>
-    // 4 Top Dedicated World-Class Hard Techno Streams (100% Real Live Streams)
+    // 4 Top Dedicated World-Class Hard Techno Streams (100% Tested Live Streams)
     const HARD_CHANNELS = [
       {
         name: "SUNSHINE HARD",
@@ -440,21 +440,21 @@
         bpm: "148 BPM"
       },
       {
-        name: "TECHNOLOVERS HARD",
-        genre: "192 KBPS // UNDERGROUND HARDTECHNO",
-        url: "https://stream.technolovers.fm/techno?ref=suni",
+        name: "181.FM TECHNO CLUB",
+        genre: "128 KBPS // HARD TECHNO CLUB",
+        url: "https://listen.181fm.com/181-technoclub_128k.mp3",
+        bpm: "145 BPM"
+      },
+      {
+        name: "1000 TECHNO RAW",
+        genre: "128 KBPS // RAW BERLIN UNDERGROUND",
+        url: "https://1000techno.stream.laut.fm/1000techno",
         bpm: "150 BPM"
       },
       {
-        name: "RAUTEMUSIK INDUSTRIAL",
-        genre: "192 KBPS // RAW BERLIN SCHRANZ",
-        url: "https://streams.rautemusik.fm/techno/mp3-192/?ref=suni",
-        bpm: "155 BPM"
-      },
-      {
-        name: "SECTOR TECHNO NL",
-        genre: "256 KBPS // AMSTERDAM HARD CLUB",
-        url: "https://secure.live-streams.nl/main",
+        name: "TECHNOBASE FM",
+        genre: "192 KBPS // PURE HARD DANCE & TECHNO",
+        url: "https://listener3.mp3.tb-group.fm/tb.mp3",
         bpm: "146 BPM"
       }
     ];
@@ -462,11 +462,6 @@
     let currentCh = 0;
     let isPlaying = false;
     let currentVol = 0.85;
-
-    // Web Audio Gain routing for 100% mobile & desktop volume attenuation
-    let audioCtx = null;
-    let gainNode = null;
-    let sourceNode = null;
 
     const audio = document.getElementById("liveAudio");
     const masterBtn = document.getElementById("masterBtn");
@@ -482,31 +477,8 @@
     const canvas = document.getElementById("radarCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Init Web Audio Gain pipeline
-    function setupWebAudio() {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-        gainNode = audioCtx.createGain();
-        gainNode.gain.value = currentVol;
-
-        try {
-          sourceNode = audioCtx.createMediaElementSource(audio);
-          sourceNode.connect(gainNode);
-          gainNode.connect(audioCtx.destination);
-        } catch (err) {
-          console.warn("Direct element routing fallback active:", err);
-        }
-      }
-      if (audioCtx.state === "suspended") {
-        audioCtx.resume();
-      }
-    }
-
     // Master Power Toggle
     function togglePower() {
-      setupWebAudio();
-
       if (!isPlaying) {
         powerOn();
       } else {
@@ -534,7 +506,8 @@
       channelCard.classList.remove("active");
 
       audio.pause();
-      audio.src = "";
+      audio.removeAttribute("src");
+      audio.load();
     }
 
     // Channel Switching
@@ -575,26 +548,30 @@
       const target = HARD_CHANNELS[index];
       audio.pause();
       audio.src = target.url;
-      audio.load();
       audio.volume = currentVol;
+      audio.load();
 
-      audio.play().catch(e => {
-        console.warn("Stream playback retry:", e);
-      });
+      const p = audio.play();
+      if (p !== undefined) {
+        p.catch(e => {
+          console.warn("Playback retry/resume:", e);
+        });
+      }
     }
 
-    // Hardware Volume Control (Dual Control)
+    // Stream error auto-recovery
+    audio.onerror = () => {
+      if (isPlaying) {
+        console.warn("Stream drop on channel, auto-reconnecting:", currentCh);
+        setTimeout(() => { if (isPlaying) loadChannelStream(currentCh); }, 1500);
+      }
+    };
+
+    // Hardware Volume Control (Native Direct)
     function changeVolume(val) {
       currentVol = parseFloat(val);
       volText.innerText = Math.round(currentVol * 100) + "%";
-
-      // 1. Native element volume
       audio.volume = currentVol;
-
-      // 2. WebAudio gain node volume (bypasses mobile OS volume locks)
-      if (gainNode && audioCtx) {
-        gainNode.gain.setValueAtTime(currentVol, audioCtx.currentTime);
-      }
     }
 
     // Visualizer Radar
