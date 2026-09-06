@@ -4,7 +4,9 @@
 > وب‌اپلیکیشن مینی‌مالیست و بلک باکس استریم رادیو آنلاین تکنو با ۱۰ کانال زنده تست‌شده بدون افت کیفیت.
 
 - **Live Web App / نسخه آنلاین**: [https://3krbkbkrbrbg.github.io/suni-techno/](https://3krbkbkrbrbg.github.io/suni-techno/)
-- **GitHub Repository**: [https://github.com/3krbkbkrbrbg/suni-techno](https://github.com/3krbkbkrbrbg/suni-techno)
+- **Android App (APK) / اپلیکیشن اندروید**: [https://github.com/3krbkbkrbrbg/suni-techno-android/releases](https://github.com/3krbkbkrbrbg/suni-techno-android/releases)
+- **GitHub Web Repo**: [https://github.com/3krbkbkrbrbg/suni-techno](https://github.com/3krbkbkrbrbg/suni-techno)
+- **GitHub Android Repo**: [https://github.com/3krbkbkrbrbg/suni-techno-android](https://github.com/3krbkbkrbrbg/suni-techno-android)
 
 ---
 
