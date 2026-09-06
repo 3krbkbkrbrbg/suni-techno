@@ -318,7 +318,7 @@
       letter-spacing: 0.04em;
     }
 
-    /* Master Hardware Volume Deck */
+    /* Master Hardware Volume Deck (Isolated) */
     .vol-deck {
       width: 100%;
       display: flex;
@@ -328,6 +328,8 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 10px 14px;
+      position: relative;
+      z-index: 5;
     }
 
     .vol-label {
@@ -416,10 +418,10 @@
         <div class="station-genre" id="chGenre">192 KBPS // HARDTECHNO GERMANY</div>
       </div>
 
-      <!-- Volume Deck (Dual WebAudio Gain + Element Volume) -->
-      <div class="vol-deck">
+      <!-- Volume Deck (Dual WebAudio Gain + Element Volume — 100% Isolated) -->
+      <div class="vol-deck" id="volDeck" onclick="event.stopPropagation()" ontouchstart="event.stopPropagation()" ontouchend="event.stopPropagation()">
         <span class="vol-label">VOL</span>
-        <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="changeVolume(this.value)">
+        <input type="range" id="volSlider" class="vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="changeVolume(this.value)" onkeydown="event.stopPropagation()" onkeyup="event.stopPropagation()" aria-label="Volume">
         <span class="vol-val" id="volText">85%</span>
       </div>
     </div>
@@ -555,6 +557,15 @@
       chIndicator.innerText = `0${index + 1} / 04`;
       bpmTag.innerText = target.bpm;
 
+      // Update System Media Session
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: target.name,
+          artist: "SUNI TECHNO",
+          album: target.genre
+        });
+      }
+
       if (isPlaying) {
         loadChannelStream(index);
       }
@@ -640,27 +651,32 @@
     }
     renderRadar();
 
-    // Keyboard controls
+    // System MediaSession controls (Android notification & lockscreen)
+    if ('mediaSession' in navigator) {
+      try {
+        navigator.mediaSession.setActionHandler('previoustrack', prevChannel);
+        navigator.mediaSession.setActionHandler('nexttrack', nextChannel);
+        navigator.mediaSession.setActionHandler('play', () => { if (!isPlaying) togglePower(); });
+        navigator.mediaSession.setActionHandler('pause', () => { if (isPlaying) togglePower(); });
+      } catch (err) {
+        console.warn("MediaSession action handler error:", err);
+      }
+    }
+
+    // Keyboard controls — 100% walled off from volume slider & input fields
     window.addEventListener("keydown", e => {
+      // Isolate: Ignore all keys if focused on volume slider, volume deck, or any input
+      if (e.target && (e.target.tagName === "INPUT" || e.target.closest("#volDeck"))) {
+        return;
+      }
       if (e.key === "ArrowRight") nextChannel();
       if (e.key === "ArrowLeft") prevChannel();
       if (e.key === " " || e.key === "Enter") {
+        if (e.target && e.target.tagName === "BUTTON") return;
         e.preventDefault();
         togglePower();
       }
     });
-
-    // Touch Swipe on Channel Card
-    let touchStartX = 0;
-    channelCard.addEventListener("touchstart", e => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    channelCard.addEventListener("touchend", e => {
-      const diff = e.changedTouches[0].screenX - touchStartX;
-      if (diff > 40) prevChannel();
-      if (diff < -40) nextChannel();
-    }, { passive: true });
   </script>
 </body>
 </html>
