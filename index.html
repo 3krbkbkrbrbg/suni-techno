@@ -293,13 +293,54 @@
       box-shadow: 0 0 8px var(--accent-neon);
     }
 
+    .meta-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
     .meta-station {
       font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.1em;
       color: var(--text-dim);
       text-transform: uppercase;
-      margin-bottom: 4px;
+    }
+
+    .ch-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #090b0e;
+      border: 1px solid #1a1e27;
+      border-radius: 6px;
+      padding: 2px 4px;
+    }
+
+    .ch-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0 6px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+
+    .ch-btn:hover, .ch-btn:active {
+      color: var(--accent-neon);
+    }
+
+    .ch-pill {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.05em;
     }
 
     .meta-track {
@@ -607,7 +648,14 @@
 
         <!-- Metadata Card -->
         <div id="metaCard" class="meta-card">
-          <div class="meta-station" id="stationName">LIVE RADIO TRANSMISSIONS</div>
+          <div class="meta-card-header">
+            <div class="meta-station" id="stationName">LIVE RADIO TRANSMISSIONS</div>
+            <div class="ch-stepper">
+              <button class="ch-btn" onclick="prevStream()" title="Previous Channel">‹</button>
+              <span class="ch-pill" id="chIndicator">CH 01/04</span>
+              <button class="ch-btn" onclick="nextStream()" title="Next Channel">›</button>
+            </div>
+          </div>
           <div class="meta-track" id="trackTitle">RESONANCE</div>
           <div class="meta-artist" id="artistName">SYSTEMATIC // HARD GROOVE</div>
         </div>
@@ -810,6 +858,8 @@
       stationName.innerText = "LIVE // " + s.name;
       trackTitle.innerText = s.track;
       artistName.innerText = s.artist;
+      document.getElementById("chIndicator").innerText = `CH 0${index + 1}/04`;
+      document.getElementById("streamSelect").value = index;
 
       audio.src = s.url;
       audio.play().catch(err => {
@@ -818,19 +868,68 @@
       });
     }
 
-    function changeStream(val) {
-      if (val === "synth") {
-        if (isPlaying) {
-          audio.pause();
-          startSynthEngine();
-        }
+    function switchToChannel(index) {
+      currentStreamIndex = index;
+      document.getElementById("chIndicator").innerText = `CH 0${index + 1}/04`;
+      document.getElementById("streamSelect").value = index === 3 ? "synth" : index;
+
+      if (index === 3) {
+        audio.pause();
+        audio.src = "";
+        startSynthEngine();
       } else {
         stopSynthEngine();
         if (isPlaying) {
-          loadAndPlayStream(parseInt(val, 10));
+          loadAndPlayStream(index);
+        } else {
+          const s = STREAMS[index];
+          stationName.innerText = "LIVE // " + s.name;
+          trackTitle.innerText = s.track;
+          artistName.innerText = s.artist;
         }
       }
     }
+
+    function nextStream() {
+      const next = (currentStreamIndex + 1) % 4;
+      switchToChannel(next);
+    }
+
+    function prevStream() {
+      const prev = (currentStreamIndex - 1 + 4) % 4;
+      switchToChannel(prev);
+    }
+
+    function changeStream(val) {
+      if (val === "synth") {
+        switchToChannel(3);
+      } else {
+        switchToChannel(parseInt(val, 10));
+      }
+    }
+
+    // Touch swipe & keyboard navigation
+    let touchStartX = 0;
+    metaCard.addEventListener("touchstart", e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    metaCard.addEventListener("touchend", e => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (diff > 45) prevStream();
+      if (diff < -45) nextStream();
+    }, { passive: true });
+
+    window.addEventListener("keydown", e => {
+      if (e.target.tagName === "INPUT") return;
+      if (e.key === "ArrowRight") nextStream();
+      if (e.key === "ArrowLeft") prevStream();
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        togglePlayback();
+      }
+    });
 
     function setVolume(v) {
       audio.volume = v;
